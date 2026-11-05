@@ -1,0 +1,244 @@
+erDiagram
+  universities ||--o{ faculties : has
+  faculties ||--o{ departments : has
+  departments ||--o{ courses : owns
+  departments ||--o{ curriculum_entries : offers
+  courses ||--o{ curriculum_entries : listed_in
+  courses ||--o{ timetable_slots : scheduled_as
+  departments ||--o{ lecturers : employs
+  courses ||--o{ course_lecturers : taught_by
+  lecturers ||--o{ course_lecturers : teaches
+
+  universities ||--o{ authorities : has
+  faculties ||--o{ authorities : dean_of
+  departments ||--o{ authorities : hod_of
+  universities ||--o{ routing_steps : configures
+
+  universities ||--o{ student_accounts : enrols
+  departments ||--o{ student_accounts : declared_in
+  student_accounts ||--o{ student_verifications : has
+  student_accounts ||--o{ student_course_registrations : registers
+  courses ||--o{ student_course_registrations : registered_in
+
+  courses ||--o{ findings : subject_of
+  timetable_slots ||--o{ findings : slot_of
+  findings ||--o{ reports : groups
+  student_accounts ||--o{ reports : submits
+  reports ||--o{ report_evidence : has
+  findings ||--o{ finding_confirmations : confirmed_by
+  student_accounts ||--o{ finding_confirmations : confirms
+
+  findings ||--o{ ai_reviews : reviewed_by_model
+  findings ||--o{ moderation_log : logged_in
+  moderators ||--o{ moderation_log : acts
+  ai_reviews ||--o{ moderation_log : informs
+  moderators ||--o{ findings : reviews
+
+  courses ||--o{ class_notices : announced_for
+  lecturers ||--o{ class_notices : posts
+  findings ||--o{ lecturer_replies : answered_by
+  lecturers ||--o{ lecturer_replies : writes
+
+  findings ||--o{ deliveries : delivered_as
+  authorities ||--o{ deliveries : receives
+  deliveries ||--o{ authority_responses : answered_with
+
+  universities {
+    uuid id PK
+    text name
+    text short_name
+    citext email_domain
+  }
+  faculties {
+    uuid id PK
+    uuid university_id FK
+    text name
+  }
+  departments {
+    uuid id PK
+    uuid faculty_id FK
+    text name
+  }
+  courses {
+    uuid id PK
+    uuid department_id FK
+    text code
+    text title
+    smallint level
+  }
+  curriculum_entries {
+    uuid department_id PK
+    uuid course_id PK
+    smallint level PK
+    smallint semester
+    boolean is_elective
+    text source
+  }
+  timetable_slots {
+    uuid id PK
+    uuid course_id FK
+    text academic_session
+    smallint semester
+    smallint day_of_week
+    time start_time
+    time end_time
+    text venue
+    slot_type kind
+  }
+  lecturers {
+    uuid id PK
+    uuid department_id FK
+    text full_name
+    citext email
+  }
+  course_lecturers {
+    uuid course_id PK
+    uuid lecturer_id PK
+    text academic_session PK
+  }
+  authorities {
+    uuid id PK
+    uuid university_id FK
+    authority_role role
+    uuid faculty_id FK
+    uuid department_id FK
+    text full_name
+    citext email
+    boolean is_active
+  }
+  routing_steps {
+    uuid id PK
+    uuid university_id FK
+    report_category category
+    smallint step_order
+    authority_role authority_role
+    smallint wait_days
+  }
+  student_accounts {
+    uuid id PK
+    uuid university_id FK
+    uuid department_id FK
+    smallint level
+    bytea identity_hash
+    account_status status
+    timestamptz created_at
+  }
+  student_verifications {
+    uuid id PK
+    uuid student_id FK
+    verification_factor factor
+    boolean passed
+    numeric score
+    timestamptz verified_at
+  }
+  student_course_registrations {
+    uuid student_id PK
+    uuid course_id PK
+    text academic_session PK
+  }
+  trust_weights {
+    verification_factor factor PK
+    numeric weight
+  }
+  platform_settings {
+    text key PK
+    numeric value
+    text note
+  }
+  findings {
+    uuid id PK
+    uuid course_id FK
+    report_category category
+    date incident_date
+    uuid slot_id FK
+    finding_status status
+    text public_summary
+    uuid reviewed_by FK
+    timestamptz reviewed_at
+  }
+  reports {
+    uuid id PK
+    text tracking_code
+    uuid reporter_id FK
+    uuid finding_id FK
+    text description
+    boolean notice_given
+    timestamptz created_at
+  }
+  finding_confirmations {
+    uuid id PK
+    uuid finding_id FK
+    uuid student_id FK
+    text comment
+    timestamptz created_at
+  }
+  report_evidence {
+    uuid id PK
+    uuid report_id FK
+    evidence_kind kind
+    text storage_key
+    text sha256
+    boolean metadata_stripped
+    timestamptz delete_after
+  }
+  moderators {
+    uuid id PK
+    citext email
+    text display_name
+    boolean is_active
+  }
+  ai_reviews {
+    uuid id PK
+    uuid finding_id FK
+    text model
+    ai_verdict verdict
+    numeric confidence
+    jsonb reasons
+  }
+  moderation_log {
+    uuid id PK
+    uuid finding_id FK
+    text actor
+    uuid moderator_id FK
+    uuid ai_review_id FK
+    text action
+    text note
+    timestamptz created_at
+  }
+  class_notices {
+    uuid id PK
+    uuid course_id FK
+    uuid lecturer_id FK
+    notice_kind kind
+    date for_date
+    timestamptz new_start
+    text note
+  }
+  lecturer_replies {
+    uuid id PK
+    uuid finding_id FK
+    uuid lecturer_id FK
+    reply_reason reason
+    text body
+    timestamptz created_at
+  }
+  deliveries {
+    uuid id PK
+    uuid finding_id FK
+    uuid authority_id FK
+    smallint step_order
+    delivery_status status
+    bytea token_hash
+    timestamptz sent_at
+    timestamptz viewed_at
+    timestamptz acknowledged_at
+    timestamptz responded_at
+    timestamptz due_at
+  }
+  authority_responses {
+    uuid id PK
+    uuid delivery_id FK
+    response_outcome outcome
+    text body
+    timestamptz created_at
+  }
