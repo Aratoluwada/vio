@@ -1,5 +1,5 @@
 -- =====================================================================
--- Voice It Out (VIO) / CampusVoice : PostgreSQL 15+ schema
+-- VIO (Voice It Out): PostgreSQL 15+ schema
 -- Principles:
 --   1. A single report is a claim; a FINDING (clustered, confirmed, moderated)
 --      is what gets routed and published.
