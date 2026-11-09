@@ -21,8 +21,12 @@ vio/
 |   |   |-- integration/
 |   |   |-- contract/
 |   |   |-- privacy/
-|   |   `-- fixtures/             # Fictional test data only
+|   |   `-- fixtures/             # Synthetic sensitive-workflow fixtures only
 |   `-- scripts/                  # Local development and maintenance tasks
+|-- database/
+|   |-- erd.mermaid
+|   |-- schema.sql
+|   `-- seed.sql
 |-- frontend/
 |   |-- src/
 |   |   |-- app/                  # Frontend routing and app shell
@@ -36,17 +40,17 @@ vio/
 |-- docs/
 |   |-- api/                      # API proposal and approved contract
 |   |-- architecture/
+|   |-- data/                     # Data-source provenance and freshness
+|   |-- DECISIONS.md
+|   |-- PROGRESS.md
+|   |-- PROJECT_STRUCTURE.md
 |   |-- frontend-handoff/
 |   `-- operations/
-|-- DECISIONS.md
-|-- PROGRESS.md
 |-- README.md
-|-- erd.mermaid
-|-- schema.sql
-`-- seed.sql
+`-- LICENSE
 ```
 
-The SQL scripts stay at the repository root for M0, matching the project brief. The frontend is part of this repository, with implementation owned by frontend developers. Both trees are scaffolded without choosing a language or framework. Empty directories are tracked with `.gitkeep` until implementation files are added.
+The SQL scripts live in `database/`. The frontend is part of this repository, with implementation owned by frontend developers. Both trees are scaffolded without choosing a language or framework. Empty directories are tracked with `.gitkeep` until implementation files are added.
 
 ## Separation
 
