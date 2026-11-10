@@ -14,7 +14,7 @@
   --teal-dark: #0b8483;
   --teal-mist: #e6f6f5;
   --blue-mist: #26b7ff;
-  --amber-dark: #e5a21f;
+   --blue-dark: #1496d9;
 
   /* surfaces + text */
   --white: #ffffff;
@@ -24,12 +24,13 @@
   --muted: #6b7280;
 
   /* report status (shared with admin dashboard) */
-  --status-submitted: #64748b;
-  --status-review: #e8890c;
-  --status-clarify: #f97316;
-  --status-verified: #0ea5a4;
+    /* finding / report status — names match the backend's statuses */
+  --status-collecting: #64748b;
+  --status-held: #e8890c;
+  --status-cleared: #0ea5a4;
   --status-published: #16a34a;
   --status-rejected: #dc2626;
+  --status-disputed: #f97316;
 
   /* type */
   --font-head: "Manrope", system-ui, sans-serif;
@@ -150,11 +151,16 @@ svg {
 }
 
 .btn-accent {
-  background: var(--amber);
+  background: var(--blue-mist);
   color: var(--navy);
 }
 .btn-accent:hover {
-  background: var(--amber-dark);
+  background: var(--blue-dark);
+}
+
+.btn-lg {
+  padding: 16px 30px;
+  font-size: 16px;
 }
 
 .btn-outline {
@@ -386,9 +392,138 @@ svg {
   }
 }
 
-/* ---------- temporary placeholder (delete in chunk 2) ---------- */
+/* ---------- 6. HERO ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 88px 0 72px;
+  text-align: center;
+}
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 22px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+}
+.badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.hero__title {
+  font-size: clamp(2.4rem, 7vw, 4.4rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+/* marker-style highlight under one word */
+.hl {
+  color: var(--teal-dark);
+  background: linear-gradient(transparent 64%, rgba(38, 183, 255, 0.35) 64%);
+  padding-inline: 4px;
+}
+
+.hero__lead {
+  max-width: 620px;
+  margin: 22px auto 0;
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  color: var(--muted);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.hero__note {
+  margin: 18px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* floating icon tiles */
+.float {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  box-shadow: var(--shadow-md);
+  --r: 0deg;
+  transform: rotate(var(--r));
+  animation: bob 6s ease-in-out infinite;
+}
+.float svg {
+  width: 56%;
+  height: 56%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.float--1 { top: 22px; left: 5%;  --r: -8deg; background: var(--teal);  color: var(--white); }
+.float--2 { top: 30px; right: 5%; --r: 8deg;  background: var(--blue-mist); color: var(--navy); animation-delay: -2s; }
+.float--3 { top: 46%; left: 3%;   --r: 6deg;  background: var(--white); color: var(--navy); animation-delay: -4s; }
+.float--4 { top: 50%; right: 3%;  --r: -6deg; background: var(--teal-mist); color: var(--teal-dark); animation-delay: -1s; }
+.float--5 { bottom: 12%; left: 14%;  --r: -5deg; background: var(--navy); color: var(--white); animation-delay: -3s; }
+.float--6 { bottom: 14%; right: 15%; --r: 7deg;  background: var(--white); color: var(--teal-dark); animation-delay: -5s; }
+
+/* phones: only the top two tiles, the rest would crowd the text */
+.float--3,
+.float--4,
+.float--5,
+.float--6 {
+  display: none;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(var(--r)); }
+  50% { transform: translateY(-10px) rotate(var(--r)); }
+}
+
+@media (min-width: 900px) {
+  .hero {
+    padding: 128px 0 120px;
+  }
+  .float {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+  }
+  .float--1 { top: 12%; left: 7%; }
+  .float--2 { top: 10%; right: 8%; }
+  .float--3,
+  .float--4,
+  .float--5,
+  .float--6 {
+    display: grid;
+  }
+}
+
+/* ---------- temporary placeholder (delete in chunk 3) ---------- */
 .placeholder {
-  min-height: 140vh;
+  min-height: 70vh;
   display: grid;
   place-items: center;
   text-align: center;
@@ -402,7 +537,8 @@ svg {
   html {
     scroll-behavior: auto;
   }
-  .ticker__track {
+  .ticker__track,
+  .float {
     animation: none;
   }
   .btn,

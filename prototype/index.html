@@ -6,7 +6,7 @@
   <title>VIO — Voice It Out | Every Student Deserves to Be Heard</title>
   <meta
     name="description"
-    content="VIO gives university students a structured, anonymous way to report academic challenges, track their reports and see verified findings."
+    content="VIO gives university students a structured, factual way to report academic problems, and shows the public aggregate patterns, never names."
   />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,8 +19,6 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
-  
 
   <!-- NAV -->
   <header class="site-header">
@@ -46,13 +44,12 @@
 
       <ul class="nav__links">
         <li><a href="index.html" aria-current="page">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="track.html">Track a Report</a></li>
-        <li><a href="accountability.html">Accountability</a></li>
+        <li><a href="index.html#how-it-works">How it works</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
       </ul>
 
       <div class="nav__actions">
-        <a class="btn btn-primary" href="report.html">Submit a Report</a>
+        <a class="btn btn-primary" href="sign-in.html">Student sign in</a>
         <button
           class="nav__toggle"
           type="button"
@@ -67,38 +64,87 @@
       <div class="nav__menu" id="mobile-menu">
         <ul>
           <li><a href="index.html" aria-current="page">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="track.html">Track a Report</a></li>
-          <li><a href="accountability.html">Accountability</a></li>
+          <li><a href="index.html#how-it-works">How it works</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
         </ul>
       </div>
     </nav>
   </header>
 
-  <main id="main">
-    <!-- HERO goes here (chunk 2). Placeholder so you can test the sticky nav. -->
-    <section class="placeholder">Hero section comes next</section>
-  </main>
   <!-- TICKER -->
   <div class="ticker" role="region" aria-label="Highlights">
     <div class="ticker__track">
       <ul class="ticker__list">
-        <li>Anonymous by design</li>
-        <li>Track your report with a code, no account needed</li>
-        <li>Every report is moderated before anything is published</li>
-        <li>Verified findings, not rumours</li>
+        <li>Your school email verifies you. It is never shown on reports</li>
+        <li>The public dashboard shows aggregate data only</li>
+        <li>One report is a claim, not a finding</li>
+        <li>No names, report text or tracking codes in public</li>
         <li>Every student deserves to be heard</li>
       </ul>
       <!-- duplicate for a seamless loop -->
       <ul class="ticker__list" aria-hidden="true">
-        <li>Anonymous by design</li>
-        <li>Track your report with a code, no account needed</li>
-        <li>Every report is moderated before anything is published</li>
-        <li>Verified findings, not rumours</li>
+        <li>Your school email verifies you. It is never shown on reports</li>
+        <li>The public dashboard shows aggregate data only</li>
+        <li>One report is a claim, not a finding</li>
+        <li>No names, report text or tracking codes in public</li>
         <li>Every student deserves to be heard</li>
       </ul>
     </div>
   </div>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <!-- floating icon tiles (decorative) -->
+      <span class="float float--1" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/></svg>
+      </span>
+      <span class="float float--2" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/><path d="M22 10v6"/></svg>
+      </span>
+      <span class="float float--3" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+      </span>
+      <span class="float float--4" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      </span>
+      <span class="float float--5" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </span>
+      <span class="float float--6" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15v3M12 9v9M17 12v6"/></svg>
+      </span>
+
+      <div class="container hero__inner">
+        <p class="badge">
+          <span class="badge__dot" aria-hidden="true"></span>
+          Academic accountability for students
+        </p>
+
+        <h1 class="hero__title">
+          Every student deserves to be <span class="hl">heard</span>.
+        </h1>
+
+        <p class="hero__lead">
+          VIO gives students a structured, factual way to report academic
+          problems such as cancelled lectures and unfair assessment. The public
+          sees aggregate patterns, never names.
+        </p>
+
+        <div class="hero__actions">
+          <a class="btn btn-primary btn-lg" href="dashboard.html">View dashboard</a>
+          <a class="btn btn-accent btn-lg" href="sign-in.html">Student sign in</a>
+        </div>
+
+        <p class="hero__note">
+          Your school email only verifies you. It is never shown on a report.
+        </p>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS: built in a later chunk -->
+    <section class="placeholder" id="how-it-works">How it works comes next</section>
+  </main>
 
   <script src="js/main.js"></script>
 </body>
