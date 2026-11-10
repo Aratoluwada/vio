@@ -55,4 +55,4 @@ The detailed browser routes and screen-by-screen interactions are in [FRONTEND_F
 
 ## Review Before Frontend Integration
 
-Agree the endpoint paths and payloads, session/link security, role permissions, timeline visibility, data integration behavior, upload rules, dashboard privacy thresholds, and appeal eligibility together. The endpoint proposal lists specific unresolved decisions and current schema gaps. Frontend developers may scaffold screens against typed interfaces, but must not mistake proposed routes or fictional seed data for a live integration contract.
+Agree the endpoint paths and payloads, session/link security, role permissions, timeline visibility, data integration behavior, upload rules, dashboard privacy thresholds, and appeal eligibility together. The endpoint proposal lists specific unresolved decisions and current schema gaps. Use sourced public institutional facts where available; synthetic reports and delivery scenarios are test fixtures, not live records or a reason to fake the institution catalogue.
