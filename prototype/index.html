@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VIO — Voice It Out | Every Student Deserves to Be Heard</title>
+  <meta
+    name="description"
+    content="VIO gives university students a structured, anonymous way to report academic challenges, track their reports and see verified findings."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  
+
+  <!-- NAV -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main">
+      <a class="logo" href="index.html" aria-label="VIO home">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="9" fill="#0B1F3A" />
+          <path
+            d="M8 9.5h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H15l-4.5 3.5V21.5H8a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"
+            fill="#fff"
+          />
+          <path
+            d="M11.5 15.5l3 3 6-6"
+            fill="none"
+            stroke="#0EA5A4"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="logo__text">VIO<i>.</i></span>
+      </a>
+
+      <ul class="nav__links">
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="track.html">Track a Report</a></li>
+        <li><a href="accountability.html">Accountability</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <a class="btn btn-primary" href="report.html">Submit a Report</a>
+        <button
+          class="nav__toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <span></span>
+        </button>
+      </div>
+
+      <div class="nav__menu" id="mobile-menu">
+        <ul>
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="track.html">Track a Report</a></li>
+          <li><a href="accountability.html">Accountability</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO goes here (chunk 2). Placeholder so you can test the sticky nav. -->
+    <section class="placeholder">Hero section comes next</section>
+  </main>
+  <!-- TICKER -->
+  <div class="ticker" role="region" aria-label="Highlights">
+    <div class="ticker__track">
+      <ul class="ticker__list">
+        <li>Anonymous by design</li>
+        <li>Track your report with a code, no account needed</li>
+        <li>Every report is moderated before anything is published</li>
+        <li>Verified findings, not rumours</li>
+        <li>Every student deserves to be heard</li>
+      </ul>
+      <!-- duplicate for a seamless loop -->
+      <ul class="ticker__list" aria-hidden="true">
+        <li>Anonymous by design</li>
+        <li>Track your report with a code, no account needed</li>
+        <li>Every report is moderated before anything is published</li>
+        <li>Verified findings, not rumours</li>
+        <li>Every student deserves to be heard</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
