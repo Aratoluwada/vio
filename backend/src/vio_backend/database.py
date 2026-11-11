@@ -1,5 +1,6 @@
 from collections.abc import AsyncIterator
 
+from fastapi import HTTPException, Request
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
 
@@ -15,9 +16,9 @@ def make_session_factory(engine: AsyncEngine) -> async_sessionmaker[AsyncSession
     return async_sessionmaker(engine, expire_on_commit=False)
 
 
-async def session_dependency(request) -> AsyncIterator[AsyncSession]:
+async def session_dependency(request: Request) -> AsyncIterator[AsyncSession]:
     factory = getattr(request.app.state, "session_factory", None)
     if factory is None:
-        raise RuntimeError("DATABASE_URL is not configured")
+        raise HTTPException(status_code=503, detail="Database is not configured")
     async with factory() as session:
         yield session

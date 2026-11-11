@@ -50,6 +50,7 @@ def extract_snapshot(url: str, html: str, fetched_at: str) -> dict:
 async def fetch_snapshot(client: httpx.AsyncClient, url: str) -> dict:
     validate_public_url(url)
     response = await client.get(url)
+    validate_public_url(str(response.url))
     response.raise_for_status()
     return extract_snapshot(url, response.text, datetime.now(UTC).isoformat())
 
