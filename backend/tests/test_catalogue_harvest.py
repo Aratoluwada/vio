@@ -1,6 +1,11 @@
 import pytest
+from httpx import Request, Response
 
-from vio_backend.catalogue_harvest import extract_snapshot, validate_public_url
+from vio_backend.catalogue_harvest import (
+    extract_snapshot,
+    fetch_snapshot,
+    validate_public_url,
+)
 
 
 def test_extract_snapshot_collects_course_code_candidates():
@@ -21,3 +26,13 @@ def test_rejects_nonpublic_or_unapproved_urls(url):
 
 def test_accepts_public_admissions_page():
     validate_public_url("https://admission.funaab.edu.ng/2026/programmes.php")
+
+
+@pytest.mark.asyncio
+async def test_rejects_redirect_to_unapproved_host():
+    class RedirectingClient:
+        async def get(self, url):
+            return Response(200, request=Request("GET", "https://example.com/"))
+
+    with pytest.raises(ValueError):
+        await fetch_snapshot(RedirectingClient(), "https://funaab.edu.ng/")
