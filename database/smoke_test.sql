@@ -32,9 +32,23 @@ BEGIN
        SELECT 1 FROM universities
        WHERE name = 'Federal University of Agriculture, Abeokuta'
          AND short_name = 'FUNAAB'
-         AND email_domain IS NULL
+         AND email_domain = 'student.funaab.edu.ng'
      ) THEN
     RAISE EXCEPTION 'expected verified FUNAAB seed row is missing or incorrect';
+  END IF;
+
+  IF to_regclass('public.academic_sessions') IS NULL THEN
+    RAISE EXCEPTION 'academic_sessions table is missing';
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM academic_sessions
+    WHERE session = '2026/2027'
+      AND status = 'proposed'
+      AND first_semester_lectures_start = DATE '2026-09-21'
+      AND first_semester_exams_end = DATE '2027-01-22'
+  ) THEN
+    RAISE EXCEPTION 'expected 2026/2027 proposed academic session row is missing or incorrect';
   END IF;
 
   IF (SELECT COUNT(*) FROM trust_weights) <> 3

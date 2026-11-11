@@ -35,6 +35,7 @@ CREATE TYPE golden_label     AS ENUM ('genuine', 'fake', 'abusive', 'injection',
 CREATE TYPE eval_source      AS ENUM ('nightly', 'canary', 'pre_deploy');
 CREATE TYPE appellant_kind   AS ENUM ('lecturer', 'authority', 'student');
 CREATE TYPE appeal_status    AS ENUM ('open', 'upheld', 'overturned', 'dismissed');
+CREATE TYPE calendar_status  AS ENUM ('proposed', 'confirmed');     -- provenance of academic_sessions dates
 
 -- ---------- 1. INSTITUTION STRUCTURE ---------------------------------
 CREATE TABLE universities (
@@ -42,6 +43,42 @@ CREATE TABLE universities (
   name         text   NOT NULL UNIQUE,
   short_name   text   NOT NULL UNIQUE,
   email_domain citext            -- used for school-email verification
+);
+
+-- Session-level dates sourced from the school's published academic calendar.
+-- 'proposed' means the calendar itself is labelled provisional by the school
+-- and dates may still shift; 'confirmed' means a later, final calendar
+-- superseded it. Used to compute filing eligibility/recency without
+-- hardcoding dates in application code.
+CREATE TABLE academic_sessions (
+  id                              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  university_id                   uuid NOT NULL REFERENCES universities(id) ON DELETE CASCADE,
+  session                         text NOT NULL,                 -- e.g. '2026/2027'
+  status                          calendar_status NOT NULL DEFAULT 'proposed',
+  returning_registration_starts  date,
+  fresh_registration_starts      date,
+  late_registration_starts       date,
+  late_registration_ends         date,
+  matriculation_date             date,
+  first_semester_lectures_start  date,
+  first_semester_lectures_end    date,
+  first_semester_exams_start     date,
+  first_semester_exams_end       date,
+  second_semester_lectures_start date,
+  second_semester_lectures_end   date,
+  second_semester_exams_start    date,
+  second_semester_exams_end      date,
+  session_ends                   date,                           -- special senate / end-of-session date
+  source                         text,                           -- provenance note (file, URL, or description)
+  UNIQUE (university_id, session),
+  CHECK (first_semester_lectures_end IS NULL OR first_semester_lectures_start IS NULL
+         OR first_semester_lectures_end >= first_semester_lectures_start),
+  CHECK (first_semester_exams_end IS NULL OR first_semester_exams_start IS NULL
+         OR first_semester_exams_end >= first_semester_exams_start),
+  CHECK (second_semester_lectures_end IS NULL OR second_semester_lectures_start IS NULL
+         OR second_semester_lectures_end >= second_semester_lectures_start),
+  CHECK (second_semester_exams_end IS NULL OR second_semester_exams_start IS NULL
+         OR second_semester_exams_end >= second_semester_exams_start)
 );
 
 CREATE TABLE faculties (
